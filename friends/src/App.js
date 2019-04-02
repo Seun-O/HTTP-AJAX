@@ -6,6 +6,10 @@ import "./App.css";
 class App extends Component {
   state = { friends: [] };
 
+  updateFriend = id => {
+    axios.post();
+  };
+
   render() {
     return (
       <div className="App">
@@ -29,6 +33,7 @@ class App extends Component {
       .get("http://Localhost:5000/friends")
       .then(res => {
         this.setState({ friends: res.data });
+        console.log(res.data);
       })
       .catch(err => console.log(err));
   }
