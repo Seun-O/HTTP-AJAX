@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import FriendsList from "./components/FriendsList";
-import AddFriend from "./components/FriendForm";
-import UpdateFriend from "./components/UpdateFriend";
 import { Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
@@ -34,23 +32,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={this.updateFriend}>Save List</button>
         <Route
           path="/"
           component={props => (
-            <FriendsList friends={this.state.friends} {...props} />
-          )}
-        />
-        <Route
-          path="/add"
-          component={props => (
-            <AddFriend btnAction={this.createFriend} {...props} />
-          )}
-        />
-        <Route
-          path="/update"
-          component={props => (
-            <UpdateFriend btnAction={this.changeFriend} {...props} />
+            <FriendsList
+              friends={this.state.friends}
+              createFriend={this.createFriend}
+              {...props}
+            />
           )}
         />
       </div>

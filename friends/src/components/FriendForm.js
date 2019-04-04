@@ -1,10 +1,35 @@
 import React, { Component } from "react";
+import styled from "styled-components";
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      background: slategray;
+      color: white;
+      font-size: 1.6rem;
+      padding: 0 0 0 1rem;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid purple;
+      margin: 1rem 0;
+
+      ::placeholder {
+        color: lightgray;
+      }
+    }
+  }
+`;
 class FriendForm extends Component {
   state = { friend: { name: "", age: undefined, email: "", id: undefined } };
   postForm = e => {
     e.preventDefault();
-    this.props.btnAction(this.state.friend);
+    this.props.createFriend(this.state.friend);
   };
   updateName = e => {
     this.setState({ friend: { ...this.state.friend, name: e.target.value } });
@@ -23,35 +48,43 @@ class FriendForm extends Component {
   render() {
     return (
       <div>
-        <form action="">
+        <Form action="">
           <div>
-            <label htmlFor="id">Id</label>
-            <input onChange={this.updateId} type="number" name="id" />
+            <input
+              onChange={this.updateId}
+              type="number"
+              name="id"
+              placeholder="Id"
+            />
           </div>
           <div>
-            <label htmlFor="name">Name</label>
             <input
               onChange={this.updateName}
               type="text"
               name="name"
+              placeholder="Name"
               value={this.state.friend.name}
             />
           </div>
           <div>
-            <label htmlFor="age">Age</label>
-            <input onChange={this.updateAge} type="number" name="age" />
+            <input
+              onChange={this.updateAge}
+              type="number"
+              name="age"
+              placeholder="Age"
+            />
           </div>
           <div>
-            <label htmlFor="email">Email</label>
             <input
               onChange={this.updateEmail}
               type="email"
               name="email"
+              placeholder="Email"
               value={this.state.friend.email}
             />
           </div>
-        </form>
-        <button onClick={this.postForm}>Submit</button>
+          <button onClick={this.postForm}>Submit</button>
+        </Form>
       </div>
     );
   }
