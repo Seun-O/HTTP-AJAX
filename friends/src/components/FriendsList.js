@@ -27,43 +27,25 @@ const FormContainer = styled.div`
   margin: 0 auto;
 `;
 
-const SNav = styled.nav`
-  h1 {
-    color: white;
-    padding: 0 2rem;
-  }
-  a {
-    text-decoration: none;
-  }
-`;
-
 export default props => {
   return (
-    <>
-      <SNav>
-        <Link to="/">
-          <h1>Home</h1>
-        </Link>
-      </SNav>
-      <SContainer>
-        <FormContainer>
-          <FriendForm createFriend={props.createFriend} />
-        </FormContainer>
-        <FriendList>
-          {props.friends.map(friend => {
-            return (
-              <Link to={`/friends/${friend.id}`}>
-                <Friends
-                  key={friend.id}
-                  name={friend.name}
-                  age={friend.age}
-                  email={friend.email}
-                />
-              </Link>
-            );
-          })}
-        </FriendList>
-      </SContainer>
-    </>
+    <SContainer>
+      <FormContainer>
+        <FriendForm createFriend={props.createFriend} />
+      </FormContainer>
+      <FriendList>
+        {props.friends.map(friend => {
+          return (
+            <Friends
+              key={friend.id}
+              name={friend.name}
+              age={friend.age}
+              email={friend.email}
+              id={friend.id}
+            />
+          );
+        })}
+      </FriendList>
+    </SContainer>
   );
 };

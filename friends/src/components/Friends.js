@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const SDiv = styled.div`
@@ -8,12 +9,14 @@ const SDiv = styled.div`
   border-radius: 12px 12px 0 0;
   text-align: center;
 `;
-export default ({ name, age, email }) => {
+export default ({ name, age, email, id }) => {
   return (
-    <SDiv>
-      <h1>{name}</h1>
-      <p>{age}</p>
-      <p>{email}</p>
-    </SDiv>
+    <Link to={`/friends/${id}`}>
+      <SDiv>
+        <h1>{name}</h1>
+        <p>{age}</p>
+        <p>{email}</p>
+      </SDiv>
+    </Link>
   );
 };
