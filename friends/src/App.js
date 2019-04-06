@@ -8,7 +8,10 @@ import axios from "axios";
 import "./App.css";
 
 class App extends Component {
-  state = { friends: [], friend: {} };
+  state = {
+    friends: [],
+    friend: {}
+  };
 
   postFriend = () => {
     axios.post(`http://Localhost:5000/friends`, this.state.friend);
@@ -73,11 +76,7 @@ class App extends Component {
         <Route
           path="/friends/:id/edit"
           render={props => (
-            <UpdateFriend
-              friends={this.state.friends}
-              {...props}
-              updateFriend={this.updateFriend}
-            />
+            <UpdateFriend friends={this.state.friends} {...props} />
           )}
         />
       </div>

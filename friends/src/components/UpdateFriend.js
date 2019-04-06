@@ -1,4 +1,5 @@
 import React from "react";
+import Form from "./Form";
 
 export default props => {
   const friend = props.friends.find(
@@ -11,13 +12,8 @@ export default props => {
   };
 
   return (
-    <form>
-      <input type="text" value={friend.name} />
-      <input type="number" value={friend.age} />
-      <input type="email" value={friend.email} />
-      <div>
-        <button onClick={updateFriend}>Save</button>
-      </div>
-    </form>
+    <div>
+      <Form id={friend.id} />
+    </div>
   );
 };
