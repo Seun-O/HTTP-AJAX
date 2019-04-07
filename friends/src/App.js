@@ -1,56 +1,77 @@
 import React, { Component } from "react";
-import FriendsList from "./components/FriendsList";
-import AddFriend from "./components/FriendForm";
-import UpdateFriend from "./components/UpdateFriend";
 import { Route } from "react-router-dom";
+import Menu from "./components/layout/Menu";
+import FriendsList from "./components/FriendsList";
+import FriendItem from "./components/FriendItem";
+import EditFriend from "./components/EditFriend";
 import axios from "axios";
 import "./App.css";
 
 class App extends Component {
-  state = { friends: [], friend: {} };
+  state = { friends: [] };
 
-  updateFriend = () => {
-    axios.post(`http://Localhost:5000/friends`, this.state.friend);
+  postFriend = friend => {
+    axios
+      .post(`http://localhost:5000/friends`, friend)
+      .then(res => {
+        this.setState({ friends: res.data });
+      })
+      .catch(err => console.log(err));
   };
 
-  createFriend = friend => {
-    const newFriend = {
-      name: friend.name,
-      age: parseInt(friend.age),
-      email: friend.email,
-      id: parseInt(friend.id)
-    };
-    this.setState({
-      friends: [...this.state.friends, newFriend],
-      friend: newFriend
-    });
+  deleteFriend = id => {
+    axios
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => {
+        this.setState({ friends: res.data });
+      })
+      .catch(err => console.log(err));
   };
 
-  changeFriend = friend => {
-    console.log(friend.id);
-    axios.put(`http://Localhost:5000/friends/${friend.id}`);
+  putFriend = (id, friend) => {
+    axios
+      .put(`http://localhost:5000/friends/${id}`, friend)
+      .then(res => {
+        this.setState({ friends: res.data });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
     return (
-      <div className="App">
-        <button onClick={this.updateFriend}>Save List</button>
+      <div>
+        <Menu />
         <Route
+          exact
           path="/"
-          component={props => (
-            <FriendsList friends={this.state.friends} {...props} />
+          render={props => (
+            <FriendsList
+              friends={this.state.friends}
+              action={this.postFriend}
+              {...props}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path="/friends/:id"
+          render={props => (
+            <FriendItem
+              friends={this.state.friends}
+              deleteFriend={this.deleteFriend}
+              {...props}
+            />
           )}
         />
         <Route
-          path="/add"
-          component={props => (
-            <AddFriend btnAction={this.createFriend} {...props} />
-          )}
-        />
-        <Route
-          path="/update"
-          component={props => (
-            <UpdateFriend btnAction={this.changeFriend} {...props} />
+          path="/friends/:id/edit"
+          render={props => (
+            <EditFriend
+              friends={this.state.friends}
+              editFriend={this.putFriend}
+              {...props}
+            />
           )}
         />
       </div>

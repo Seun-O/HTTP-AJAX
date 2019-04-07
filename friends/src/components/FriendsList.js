@@ -1,19 +1,12 @@
 import React from "react";
-import Friends from "./Friends";
+import FriendCard from "../components/FriendCard";
+import Form from "./Form";
 
-export default props => {
-  return (
-    <div>
-      {props.friends.map(friend => {
-        return (
-          <Friends
-            key={friend.id}
-            name={friend.name}
-            age={friend.age}
-            email={friend.email}
-          />
-        );
-      })}
-    </div>
-  );
-};
+export default props => (
+  <div>
+    <Form action={props.action} />
+    {props.friends.map(friend => (
+      <FriendCard key={friend.id} friend={friend} />
+    ))}
+  </div>
+);
